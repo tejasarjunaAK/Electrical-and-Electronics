@@ -12,3 +12,78 @@ BAROMETRIC PRESSURE / PRESSURE SENSORS THAT COME UNDER UNIFIED SENSORS:
 BMP085, BMP180 , BMP280 , BME680 , BME280
 etc.
 there are so many such sensors. Check in google before using the sensor, if Adafruit Unified sensor library can be used or not.
+
+We can use the same code for all the sensors, just change the quantity to get the sensor values.
+We need to include Adafruit unified sensor library and adafruit library for that sensor.
+
+#include <Wire.h>  //IF I2C protocol communication
+#include <Adafruit_Sensor.h>  //in include we write Adafruit_Sensor.h while in library we must install Adafruit Unified library.
+#include <Adafruit_XXXX.h>
+
+Adafruit_XXXX sensor;
+void sensor_data(Adafruit_Sensor* s, quantity){
+sensors_event_t event;
+s ->getEvent(&event);
+if (strcmp(quantity,"Temperature")==0){
+ Serial.println(event.temperature);}
+
+Note:
+in Adafruit, the quantities from event :
+event.temperature
+event.acceleration.x
+event.acceleration.y
+event.acceleration.z
+event.relative_humidity
+event.pressure
+event.gyro.x
+event.gyro.y
+event.gyro.z
+event.magnetic.x
+even.magnetic.y
+event.magnetic.z  // These are the magnetic field strengths along different axes. The magnetometer module also outputs the magnetic field strengths only, we must use our code
+to use it as compass and know how much degree off we are from North direction,etc.
+}
+void setup(){
+ Serial.begin(115200);
+ while !(sensor.begin()){
+ Serial.println("sensor not connected yet");
+ }
+ Serial.println("Sensor connected successfully");
+}
+void loop(){
+ sensor_data(&sensor, Temperature); //It is &sensor as the function header asks for parameter to be pointer.
+}
+
+What exactly is sensors_event_t : It is a custom C++ struct. Used to store different quantities of various sensors at different snapshots of time:
+It contains empty slots for:Acceleration ($x, y, z$)Magnetic field ($x, y, z$)Gyroscope rotation ($x, y, z$)Temperature, pressure, light, etc.
+
+Adafruit_Sensor* s: This is a pointer to an object. Instead of writing a separate function for an accelerometer, a gyroscope, and a magnetometer,
+this function accepts a generic sensor pointer s. You can pass any supported sensor into this function, and it will handle it.
+The sensors_event_t event is an empty slot. It is not filled yet.
+Only in this line is the slots of quantities getting written - s-> getEvent(&event);
+
+We need sensor.begin(hex address) for every I2C sensor because -> the code will make the mcu to start the sda channel and also if sensor.begin(hex address) is true, then it 
+is guarantee that the sensor is connecetd to mcu. 
+Note: The hexadecimal device address exists only for I2C sensor.
+
+There are 127 possible address : from 1 to 127.
+To get the hex address of the sensor we are using we can do it by coding:
+Wire.beginTransmission(address) will make the mcu send start condition in sda alongwith 7 bit binary address.
+After sending the start condition, SDA will go to HIGH. If there is any sensor in that address, it will pull the sda to low. This is confirmation called ACK
+If no sensor in address, then SDA is at HIGH, this is called NACK
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
