@@ -1,1 +1,14 @@
+Reason for Adafruit unified sensor library:
+Before that : Library name - Adafruit Unified Sensor library
+#include <Adafruit_Sensor.h>
 
+Different sensors have different data formats, output dtypes, APIs, unique drivers. If they are not unified, then one code can't be swapped easily with another, even if they are measuring the same quantity.
+Sensors like ultrasonic sensors can't bbe used with unified sensor library.
+Sensors that come under unified sensors must have Adafruit drivers, so that their output can be taken by the adafruit library and make the code uniform for all sensors.
+
+IMU SENSORS THAT HAVE ADAFRUIT DRIVER:
+MPU6050 , LSM303 , LSM6DS3 , LSM6DSOX , BNO055 , FXOS8700 , FXAS21002C.
+BAROMETRIC PRESSURE / PRESSURE SENSORS THAT COME UNDER UNIFIED SENSORS:
+BMP085, BMP180 , BMP280 , BME680 , BME280
+etc.
+there are so many such sensors. Check in google before using the sensor, if Adafruit Unified sensor library can be used or not.
