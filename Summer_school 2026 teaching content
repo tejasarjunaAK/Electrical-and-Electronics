@@ -1,1 +1,5 @@
+Projects to be done are:
+in Tinkercad : led -> blink, pwm, with potentiometer.
+in Tinkercad : rc motor + servo checking
+Wokwi: read MPU6050 and displaying in OLED + displaying in website and reading using another esp32.
 
