@@ -1,1 +1,13 @@
+#include <WiFi.h>
+ char* ssid = "Airtel_broadband";
+ char* password = "SanguRotuTeju@6";
+void setup(){
+ Serial.begin(115200);
+delay(10);  // this must be before setting up connection or initialising any sensor , and also there must be some delay - so that serial monitor is set up and can print the messages.
 
+ WiFi.begin(ssid,password);
+
+ while (WiFi.status() !=WL_CONNECTED){
+  Serial.println("Didn't connect to the wifi network Airtel_broadband");
+  delay(500);}}
+void loop(){}
