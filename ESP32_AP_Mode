@@ -1,1 +1,12 @@
+This is very simple :-
+#include <WiFi.h>
+const char* ssid ="ESP_me";
+const char* password ="hello123";
+void setup(){
+  Serial.begin(115200);
+  delay(100);
+  WiFi.softAP(ssid,password);
+  Serial.printf("WiFi ssid is %s \n", ssid);
+  Serial.printf("WiFi password is %s \n" , password);}
+void loop(){}
 
