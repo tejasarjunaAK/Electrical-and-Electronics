@@ -35,3 +35,44 @@ For Aunthenticated API, where token is necessary.
  Tells server what format you want in response
 
 We can have musltiple headers in single code, each one serving one purpose.
+
+DATA sending functions:
+The functions will return an integer - that is the http status code . 200 for success, 404 : not found, negative number for low level hardware or network error.
+
+a) http.GET:
+What it does: Sends a request to the server to fetch/retrieve information.
+Syntax: int httpCode = http.GET();
+Returns: int (HTTP Status Code).
+
+b) http.POST():
+What it does: Sends a request containing a data payload to the cloud server to create or update a record.
+Syntax Options: * http.POST(String_Payload) (To send text formats like JSON)
+http.POST(uint8_t * buffer, size_t size) (To send raw binary or bytes, like a camera image frame)
+Returns: int (HTTP Status Code).
+
+c) http.PUT()
+What it does: Sends data to a server designed specifically to replace or update an existing resource or database line.
+Syntax: http.PUT(String_Payload)
+Returns: int (HTTP Status Code).
+
+Responsde retrieval functions:
+After action based functions like GET(), POST(),
+To get receive the response from the website :-
+
+a)http.getString()
+What it does: Downloads the entire response payload from the cloud server and converts it into a single Arduino String.
+Syntax: String response = http.getString();
+Returns: String containing the server's reply message.
+Note: Best used for short server replies like confirmation messages or small JSON objects.
+
+b)http.getSize()
+What it does: Checks the Content-Length header sent back by the server to see exactly how many bytes of data are waiting to be read.
+Syntax: int payloadSize = http.getSize();
+Returns: int (Size of the incoming payload in bytes).
+
+c) http.getStream()
+What it does: Returns a direct operational hook to the raw underlying network stream.
+Syntax: WiFiClient& stream = http.getStream();
+Returns: A reference to the WiFiClient network stream object.
+Note: Critical for advanced robotics applications. Instead of loading a massive data file into the ESP32's limited RAM all at once via getString(), getStream() lets you read and process incoming server data byte-by-byte.
+
