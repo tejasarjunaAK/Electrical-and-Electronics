@@ -1,1 +1,37 @@
+To create a http connection with cloud server to transmit or receive data:
 
+Library: HTTP.Client
+#include <HTTPClient.h>
+
+->to configure esp32 with the web address we want to communicate with:
+http.begin(WiFiClient, "http://your-server.com/api")
+For more secure connection with https:-
+http.begin(WiFiClientSecure, "https://your-server.com/api")
+http.begin() will return a bool value: true if intitalisation format is correct and false if URL format is wrong.
+
+-> http.end():
+ Closes the current network connection and releases all memory allocated by the HTTP client back to the ESP32 system.
+It returns nothing
+
+-> http.setTimeout():
+What it does: Sets the maximum time (in milliseconds) the ESP32 will wait for the cloud server to respond to a request before giving up.
+Syntax: http.setTimeout(10000) (Sets a 10-second timeout window)
+Returns: Nothing (void).
+
+->http.addHeader():
+To add the header :- most general header calls-
+1) http.addHeader ("Content-Type", "applicatioin/json")
+Tells server what format your data is in
+Without this, the server will not know how to parse the data that we put in .
+"application/json" — JSON data
+"application/x-www-form-urlencoded" — Form data
+"text/plain" — Plain text
+"text/xml" — XML data
+
+2) http.addHeader("Authorization","Bearer <api_token");
+For Aunthenticated API, where token is necessary.
+
+3) http.addHeader("accept", "application/json");
+ Tells server what format you want in response
+
+We can have musltiple headers in single code, each one serving one purpose.
