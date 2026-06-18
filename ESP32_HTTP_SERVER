@@ -76,3 +76,17 @@ Syntax: WiFiClient& stream = http.getStream();
 Returns: A reference to the WiFiClient network stream object.
 Note: Critical for advanced robotics applications. Instead of loading a massive data file into the ESP32's limited RAM all at once via getString(), getStream() lets you read and process incoming server data byte-by-byte.
 
+
+So the functions in HTTPClient library are:
+Initialization function : http.begin(WiFiClient, "http://server.api");
+Header functions : http.addHeader () : telling what dtype we are going to input ("Content-Type"), what dtype we input from website ("accept"), authorization by api token, etc
+Action based functions: http.GET(), http.POST(), http.PUT()
+response retrieval functions
+
+
+
+
+
+
+
+
